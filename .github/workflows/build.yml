@@ -1,0 +1,62 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (number only, match with setup.iss)'
+        required: true
+        type: number
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build binaries
+    runs-on: windows-2022
+    steps:
+      - name: Check out files
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          fetch-depth: 0
+          # NOTE - If LFS ever starts getting used during builds, switch this to true!
+          lfs: false
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1
+        with:
+          msbuild-architecture: x64
+          vs-prerelease: true
+
+      - name: Generate project files (premake)
+        run: premake/premake5 vs2022
+
+      - name: Compile
+        id: compile
+        run: msbuild /m /v:minimal /p:Configuration=Release /p:Platform=Win32 build/Fuck_off_EA_App.sln
+
+      - name: Upload binaries
+        uses: actions/upload-artifact@v3
+        with:
+          name: binaries
+          path: |
+            build/bin/Win32-Release/version.exe
+            build/bin/Win32-Release/version.pdb
+
+      - name: Create innosetup install package
+        run: iscc .\setup.iss /DMyAppVersion=${{ inputs.version || github.sha }}
+      - name: Upload setup as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: installer
+          path: Fuck_off_EA_App_installer.exe

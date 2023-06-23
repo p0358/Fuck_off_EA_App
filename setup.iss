@@ -1,5 +1,5 @@
 #define MyAppName "the ""Fuck off EA App"" patch by p0358"
-#define MyAppVersion "1"
+;#define MyAppVersion "1" -- specified on the command line
 #define MyAppPublisher "p0358"
 #define MyAppURL "https://github.com/p0358/Fuck_off_EA_App"
 
