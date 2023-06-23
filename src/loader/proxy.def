@@ -1,0 +1,18 @@
+LIBRARY version
+EXPORTS
+	GetFileVersionInfoA=PROXY_GetFileVersionInfoA
+	GetFileVersionInfoExA=PROXY_GetFileVersionInfoExA
+	GetFileVersionInfoExW=PROXY_GetFileVersionInfoExW
+	GetFileVersionInfoW=PROXY_GetFileVersionInfoW
+	GetFileVersionInfoSizeA=PROXY_GetFileVersionInfoSizeA
+	GetFileVersionInfoSizeExA=PROXY_GetFileVersionInfoSizeExA
+	GetFileVersionInfoSizeExW=PROXY_GetFileVersionInfoSizeExW
+	GetFileVersionInfoSizeW=PROXY_GetFileVersionInfoSizeW
+	VerFindFileA=PROXY_VerFindFileA
+	VerFindFileW=PROXY_VerFindFileW
+	VerInstallFileA=PROXY_VerInstallFileA
+	VerInstallFileW=PROXY_VerInstallFileW
+	VerLanguageNameA=kernel32.VerLanguageNameA
+	VerLanguageNameW=kernel32.VerLanguageNameW
+	VerQueryValueA=PROXY_VerQueryValueA
+	VerQueryValueW=PROXY_VerQueryValueW
