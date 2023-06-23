@@ -1,0 +1,6 @@
+[submodule "thirdparty/minhook"]
+	path = thirdparty/minhook
+	url = https://github.com/TFORevive/minhook.git
+[submodule "thirdparty/silver-bun"]
+	path = thirdparty/silver-bun
+	url = https://github.com/IcePixelx/silver-bun.git
