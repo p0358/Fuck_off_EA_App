@@ -3,6 +3,7 @@
 extern "C"
 {
     FARPROC p_GetFileVersionInfoA = 0;
+    FARPROC p_GetFileVersionInfoByHandle = 0;
     FARPROC p_GetFileVersionInfoExA = 0;
     FARPROC p_GetFileVersionInfoExW = 0;
     FARPROC p_GetFileVersionInfoW = 0;
@@ -18,24 +19,29 @@ extern "C"
     FARPROC p_VerQueryValueW = 0;
 }
 
-extern "C" __declspec(dllexport) void PROXY_GetFileVersionInfoA() { __asm jmp[p_GetFileVersionInfoA] }
-extern "C" __declspec(dllexport) void PROXY_GetFileVersionInfoExA() { __asm jmp[p_GetFileVersionInfoExA] }
-extern "C" __declspec(dllexport) void PROXY_GetFileVersionInfoExW() { __asm jmp[p_GetFileVersionInfoExW] }
-extern "C" __declspec(dllexport) void PROXY_GetFileVersionInfoW() { __asm jmp[p_GetFileVersionInfoW] }
-extern "C" __declspec(dllexport) void PROXY_GetFileVersionInfoSizeA() { __asm jmp[p_GetFileVersionInfoSizeA] }
-extern "C" __declspec(dllexport) void PROXY_GetFileVersionInfoSizeExA() { __asm jmp[p_GetFileVersionInfoSizeExA] }
-extern "C" __declspec(dllexport) void PROXY_GetFileVersionInfoSizeExW() { __asm jmp[p_GetFileVersionInfoSizeExW] }
-extern "C" __declspec(dllexport) void PROXY_GetFileVersionInfoSizeW() { __asm jmp[p_GetFileVersionInfoSizeW] }
-extern "C" __declspec(dllexport) void PROXY_VerFindFileA() { __asm jmp[p_VerFindFileA] }
-extern "C" __declspec(dllexport) void PROXY_VerFindFileW() { __asm jmp[p_VerFindFileW] }
-extern "C" __declspec(dllexport) void PROXY_VerInstallFileA() { __asm jmp[p_VerInstallFileA] }
-extern "C" __declspec(dllexport) void PROXY_VerInstallFileW() { __asm jmp[p_VerInstallFileW] }
-extern "C" __declspec(dllexport) void PROXY_VerQueryValueA() { __asm jmp[p_VerQueryValueA] }
-extern "C" __declspec(dllexport) void PROXY_VerQueryValueW() { __asm jmp[p_VerQueryValueW] }
+extern "C"
+{
+    __declspec(naked) void PROXY_GetFileVersionInfoA() { __asm jmp[p_GetFileVersionInfoA] }
+    __declspec(naked) void PROXY_GetFileVersionInfoByHandle() { __asm jmp[p_GetFileVersionInfoByHandle] }
+    __declspec(naked) void PROXY_GetFileVersionInfoExA() { __asm jmp[p_GetFileVersionInfoExA] }
+    __declspec(naked) void PROXY_GetFileVersionInfoExW() { __asm jmp[p_GetFileVersionInfoExW] }
+    __declspec(naked) void PROXY_GetFileVersionInfoW() { __asm jmp[p_GetFileVersionInfoW] }
+    __declspec(naked) void PROXY_GetFileVersionInfoSizeA() { __asm jmp[p_GetFileVersionInfoSizeA] }
+    __declspec(naked) void PROXY_GetFileVersionInfoSizeExA() { __asm jmp[p_GetFileVersionInfoSizeExA] }
+    __declspec(naked) void PROXY_GetFileVersionInfoSizeExW() { __asm jmp[p_GetFileVersionInfoSizeExW] }
+    __declspec(naked) void PROXY_GetFileVersionInfoSizeW() { __asm jmp[p_GetFileVersionInfoSizeW] }
+    __declspec(naked) void PROXY_VerFindFileA() { __asm jmp[p_VerFindFileA] }
+    __declspec(naked) void PROXY_VerFindFileW() { __asm jmp[p_VerFindFileW] }
+    __declspec(naked) void PROXY_VerInstallFileA() { __asm jmp[p_VerInstallFileA] }
+    __declspec(naked) void PROXY_VerInstallFileW() { __asm jmp[p_VerInstallFileW] }
+    __declspec(naked) void PROXY_VerQueryValueA() { __asm jmp[p_VerQueryValueA] }
+    __declspec(naked) void PROXY_VerQueryValueW() { __asm jmp[p_VerQueryValueW] }
+}
 
 void ProxySetup(HINSTANCE hL)
 {
     p_GetFileVersionInfoA = GetProcAddress(hL, "GetFileVersionInfoA");
+    p_GetFileVersionInfoByHandle = GetProcAddress(hL, "GetFileVersionInfoByHandle");
     p_GetFileVersionInfoExA = GetProcAddress(hL, "GetFileVersionInfoExA");
     p_GetFileVersionInfoExW = GetProcAddress(hL, "GetFileVersionInfoExW");
     p_GetFileVersionInfoW = GetProcAddress(hL, "GetFileVersionInfoW");

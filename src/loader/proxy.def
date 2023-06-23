@@ -1,18 +1,19 @@
 LIBRARY version
 EXPORTS
-	GetFileVersionInfoA=PROXY_GetFileVersionInfoA
-	GetFileVersionInfoExA=PROXY_GetFileVersionInfoExA
-	GetFileVersionInfoExW=PROXY_GetFileVersionInfoExW
-	GetFileVersionInfoW=PROXY_GetFileVersionInfoW
-	GetFileVersionInfoSizeA=PROXY_GetFileVersionInfoSizeA
-	GetFileVersionInfoSizeExA=PROXY_GetFileVersionInfoSizeExA
-	GetFileVersionInfoSizeExW=PROXY_GetFileVersionInfoSizeExW
-	GetFileVersionInfoSizeW=PROXY_GetFileVersionInfoSizeW
-	VerFindFileA=PROXY_VerFindFileA
-	VerFindFileW=PROXY_VerFindFileW
-	VerInstallFileA=PROXY_VerInstallFileA
-	VerInstallFileW=PROXY_VerInstallFileW
-	VerLanguageNameA=kernel32.VerLanguageNameA
-	VerLanguageNameW=kernel32.VerLanguageNameW
-	VerQueryValueA=PROXY_VerQueryValueA
-	VerQueryValueW=PROXY_VerQueryValueW
+	GetFileVersionInfoA=PROXY_GetFileVersionInfoA @1
+	GetFileVersionInfoByHandle=PROXY_GetFileVersionInfoByHandle @2
+	GetFileVersionInfoExA=PROXY_GetFileVersionInfoExA @3
+	GetFileVersionInfoExW=PROXY_GetFileVersionInfoExW @4
+	GetFileVersionInfoW=PROXY_GetFileVersionInfoW @9
+	GetFileVersionInfoSizeA=PROXY_GetFileVersionInfoSizeA @5
+	GetFileVersionInfoSizeExA=PROXY_GetFileVersionInfoSizeExA @6
+	GetFileVersionInfoSizeExW=PROXY_GetFileVersionInfoSizeExW @7
+	GetFileVersionInfoSizeW=PROXY_GetFileVersionInfoSizeW @8
+	VerFindFileA=PROXY_VerFindFileA @10
+	VerFindFileW=PROXY_VerFindFileW @11
+	VerInstallFileA=PROXY_VerInstallFileA @12
+	VerInstallFileW=PROXY_VerInstallFileW @13
+	VerLanguageNameA=kernel32.VerLanguageNameA @14
+	VerLanguageNameW=kernel32.VerLanguageNameW @15
+	VerQueryValueA=PROXY_VerQueryValueA @16
+	VerQueryValueW=PROXY_VerQueryValueW @17
