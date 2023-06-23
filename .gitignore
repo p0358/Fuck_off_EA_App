@@ -362,24 +362,11 @@ MigrationBackup/
 FodyWeavers.xsd
 
 ##################################################################
-
-/build
-
-/thirdparty/ultralight/.version.txt
-/thirdparty/ultralight/include
-/thirdparty/ultralight/lib
-/thirdparty/ultralight/license
-
-!/thirdparty/MinHook/Debug
-!/thirdparty/MinHook/Release
-!/thirdparty/discord-rpc/Debug
-!/thirdparty/discord-rpc/Release
-!/thirdparty/EOS-SDK
-!/thirdparty/EOS-SDK/Bin
-!/thirdparty/EOS-SDK/Bin/x64
-!/thirdparty/ultralight
-
-##################################################################
 # CI
 ##################################################################
 *.zip
+
+##################################################################
+
+/build
+/Fuck_off_EA_App_installer.exe
