@@ -46,7 +46,7 @@ jobs:
         with:
           name: binaries
           path: |
-            build/bin/Win32-Release/version.exe
+            build/bin/Win32-Release/version.dll
             build/bin/Win32-Release/version.pdb
 
       - name: Create innosetup install package
@@ -71,4 +71,4 @@ jobs:
           fail_on_unmatched_files: true
           files: |
             Fuck_off_EA_App_installer.exe
-            build/bin/Win32-Release/version.exe
+            build/bin/Win32-Release/version.dll
