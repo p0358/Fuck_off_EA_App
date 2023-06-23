@@ -12,6 +12,8 @@ CMemory OriginExeAdr;
 CMemory OriginClientServiceExeAdr;
 CMemory OriginClientAdr;
 
+CModule Qt5Core;
+
 const fs::path GetExePath()
 {
 	WCHAR result[MAX_PATH];
