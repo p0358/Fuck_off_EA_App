@@ -15,6 +15,9 @@ on:
         required: true
         type: number
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build binaries
