@@ -11,13 +11,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version (number only, match with setup.iss)'
+        description: 'Version (number only)'
         required: true
         type: number
-
-concurrency:
-  group: ${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   build:
@@ -60,3 +56,19 @@ jobs:
         with:
           name: installer
           path: Fuck_off_EA_App_installer.exe
+
+      - name: Create release
+        if: github.ref == 'refs/heads/master' && steps.compile.conclusion == 'success' && github.event_name == 'workflow_dispatch'
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ inputs.version }}
+          name: Release v${{ inputs.version }}
+          #body: ${{ github.event.inputs.changelog }}
+          body: Auto-generated release version for build `${{ github.sha }}`
+          draft: false
+          prerelease: false
+          fail_on_unmatched_files: true
+          files: |
+            Fuck_off_EA_App_installer.exe
+            build/bin/Win32-Release/version.exe

@@ -1,20 +1,31 @@
 # "Fuck off EA App"
 
-*Note:* not ready yet........
-
 A small project to patch the EA Origin app and keep it running, avoiding the nags to upgrade to the new EA App.
 
 If you start up Origin app and see a prompt telling you to install EA App, you've come to the right place.
 
-What works (as of 2023-06-23):
+What works (as of 2023-06-24):
 * ✔️ login
 * ✔️ main page
-* ✔️ friends section
+* ✔️ game startup
 * ✔️ game downloads
+* ✔️ friends section
 
 ## Download
 
-**[Download](https://github.com/p0358/Fuck_off_EA_App/releases)** it from the Releases section, and follow the instructions there!
+### Installer
+
+**[Download](https://github.com/p0358/Fuck_off_EA_App/releases)** the installer from Releases section and run it!
+
+![installer screenshot](https://github.com/p0358/Fuck_off_EA_App/assets/5182588/b122e05c-79b3-4849-ba56-c8a79552b8ec)
+
+### Manually
+
+1. Go into [Releases section](https://github.com/p0358/Fuck_off_EA_App/releases) and grab the latest `version.dll` file
+2. Drop it into your Origin installation folder, by default `C:\Program Files (x86)\Origin`
+3. Restart Origin
+
+Note: you can also compile the DLL manually, instructions are at the bottom of this file.
 
 ## Why
 
@@ -28,14 +39,6 @@ Remember to leave a star and follow if it helped you ;)
 
 Use this link: https://download.dm.origin.com/origin/live/OriginSetup.exe
 
-### How does it work?
-
-Our custom DLL (named `version.dll`) is loaded by Origin during its startup, after you insert it under its installation directory. It conducts function hooks and patches that prevent the upgrade notice from appearing. You can study the code for more details.
-
-### Is it safe?
-
-Yeah, the thing is open-sourced, and the actual DLL and installer in Releases section is built by GitHub Actions CI.
-
 ### Do I need a specific version of Origin?
 
 No, it should work fine with both the latest `10.5.122.52971` and with the older `10.5.119.52718` or earlier (if you used the downgrade method before and disabled updates).
@@ -43,6 +46,14 @@ No, it should work fine with both the latest `10.5.122.52971` and with the older
 ### What about `local.xml`?
 
 You don't need to either add or remove anything from that file anymore when using this project, conveniently.
+
+### How does it work?
+
+Our custom DLL (named `version.dll`) is loaded by Origin during its startup, after you insert it under its installation directory. It conducts function hooks and patches that prevent the upgrade notice from appearing. You can study the code for more details.
+
+### Is it safe?
+
+Yeah, the thing is open-sourced, and the actual DLL and installer in Releases section is built by GitHub Actions CI. You can always compile it yourself too if so you wish...
 
 ### What if EA breaks something again? Will this keep working forever?
 
