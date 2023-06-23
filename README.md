@@ -13,11 +13,11 @@ What works (as of 2023-06-24):
 
 ## Download
 
-### Installer
+### Automatically with the installer
 
-**[Download](https://github.com/p0358/Fuck_off_EA_App/releases)** the installer from Releases section and run it!
+**[Download](https://github.com/p0358/Fuck_off_EA_App/releases/download/v1/Fuck_off_EA_App_installer.exe)** the installer and run it!
 
-![installer screenshot](https://github.com/p0358/Fuck_off_EA_App/assets/5182588/b122e05c-79b3-4849-ba56-c8a79552b8ec)
+![installer screenshot](https://github.com/p0358/Fuck_off_EA_App/assets/5182588/1ab48e7b-e160-4248-a59a-31eb25a5b764)
 
 ### Manually
 
