@@ -72,6 +72,15 @@ Check out this issue for current status and directions: [#3](https://github.com/
 
 In short, you will need to override the setting for `version` DLL to run as `native, then built-in`, which can be accomplished through `winecfg` or the config or the particular tool you use, or by using the environment variable `WINEDLLOVERRIDES="version=n,b"` in launch options. Note that currently not everything seems to fully work...
 
+### How to disable Origin updates just in case?
+
+My currently recommended method is to open the file at `C:\Program Files (x86)\Origin\EACore.ini` and insert the following inside it:
+```
+[Bootstrap]
+EnableUpdating=false
+```
+This method will not slow down startup time, unlike the older local.xml method that I've shared. Note that as a side effect it'll enable "R&D mode" in the app.
+
 ### Is it safe?
 
 Yeah, the thing is open-sourced, and the actual DLL and installer in Releases section is built by GitHub Actions CI. You can always compile it yourself too if so you wish...
