@@ -12,6 +12,7 @@ What works (as of 2023-06-24):
 * ✔️ game startup
 * ✔️ game downloads
 * ✔️ friends section
+* ✔️ Steam games
 
 ## Download
 
@@ -60,6 +61,14 @@ EA games on Steam contain installer script, which instructs the Steam to check w
 ### What if EA breaks something again? Will this keep working forever?
 
 Given they already broke the older workarounds before a few times, probably not forever. In any case, follow this repository for updates (*star the project ;)*) -- if the workaround stops working, I will probably try to update it to work again in the future -- contributions are also welcome.
+
+### If I try to launch Steam games, EA App comes up instead of Origin?
+
+You probably installed/updated EA App after installing Origin, and as such EA App was associated to the `link2ea://` protocl instead of Origin. To fix this, run through the Origin installer again. If you get an error that no application is assigned to the protocol, that means you probably uninstalled EA App without running the Origin installer afterwards again.
+
+### Does it work on Linux under WINE/Proton?
+
+Check out this issue for current status and directions: #3
 
 ### Is it safe?
 
