@@ -79,8 +79,8 @@ void LoadProxiedLibrary()
 
 void Init()
 {
-    LoadProxiedLibrary();
-    FuckOffEAAppSetup();
+    LoadProxiedLibrary(); // loads original `version.dll` to proxy the exported functions back to it
+    FuckOffEAAppSetup(); // that function is located in the "Main" project
 }
 
 BOOL WINAPI DllMain(HINSTANCE hInstDLL, DWORD fdwReason, LPVOID lpvReserved)

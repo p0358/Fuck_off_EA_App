@@ -43,6 +43,7 @@ const std::string GetExeName()
 
 void InternalSetup()
 {
+	// Initialize MinHook
 	MH_Initialize();
 	MH_SetThreadFreezeMethod(MH_FREEZE_METHOD_FAST_UNDOCUMENTED);
 
@@ -51,26 +52,16 @@ void InternalSetup()
 	bool isOriginExe = exe_name == "Origin.exe";
 	bool isOriginClientServiceExe = exe_name == "OriginClientService.exe";
 
-	/*if (isOriginExe)
-	{
-		// preload the OriginClient.dll
-		if (!LoadLibraryW((exe_path / L"OriginClient.dll").wstring().c_str()))
-			MessageBoxA(nullptr, "Failed preloading OriginClient.dll", ERROR_MSGBOX_CAPTION, MB_ICONERROR);
-	}*/
-
 	OriginExe = CModule("Origin.exe", uintptr_t(GetModuleHandleA(nullptr)));
 	OriginClientServiceExe = CModule("OriginClientService.exe", uintptr_t(GetModuleHandleA(nullptr)));
-	//OriginClient = CModule("OriginClient.dll");
 
 	OriginExeAdr = CMemory(OriginExe.GetModuleBase());
 	OriginClientServiceExeAdr = CMemory(OriginClientServiceExe.GetModuleBase());
-	//OriginClientAdr = CMemory(OriginClient.GetModuleBase());
 
 	if (isOriginExe)
 	{
 		// Main Origin.exe program
-		DoOriginExePatches();
-		//DoOriginClientDllPatches();
+		DoOriginExePatches(); // this function will set up a hook to wait for OriginClient.dll to be loaded
 	}
 	else if (isOriginClientServiceExe)
 	{
@@ -81,12 +72,13 @@ void InternalSetup()
 		// WARN: loaded into unrecognized program!
 	}
 
+	// Enable all queued hooks
 	MH_STATUS result;
 	if ((result = MH_EnableHook(MH_ALL_HOOKS)) != MH_OK)
 		MessageBoxA(nullptr, ("MH_EnableHook(MH_ALL_HOOKS) error: " + std::to_string(result)).c_str(), ERROR_MSGBOX_CAPTION, MB_ICONERROR);
 }
 
-extern "C" void FuckOffEAAppSetup()
+extern "C" void FuckOffEAAppSetup() // called from Loader project
 {
 	InternalSetup();
 }

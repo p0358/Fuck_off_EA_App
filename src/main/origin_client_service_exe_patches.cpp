@@ -5,5 +5,5 @@
 
 void DoOriginClientServiceExePatches()
 {
-
+	// no patches required in this exe currently
 }
