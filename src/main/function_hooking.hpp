@@ -19,6 +19,8 @@ inline MH_STATUS WINAPI CreateHook(DWORD64 baseAddress, unsigned int offset, LPV
 inline MH_STATUS WINAPI CreateHookNamed(const char* moduleName, const char* procName, LPVOID pDetour, LPVOID* ppOriginal)
 {
 	HMODULE hModule = GetModuleHandleA(moduleName);
+	if (!moduleName)
+		moduleName = "<exe>";
 	if (!hModule) [[unlikely]]
 	{
 		auto err = GetLastError();

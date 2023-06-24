@@ -7,10 +7,12 @@
 CModule OriginExe;
 CModule OriginClientServiceExe;
 CModule OriginClient;
+CModule EALinkExe;
 
 CMemory OriginExeAdr;
 CMemory OriginClientServiceExeAdr;
 CMemory OriginClientAdr;
+CMemory EALinkExeAdr;
 
 CModule Qt5Core;
 
@@ -51,12 +53,15 @@ void InternalSetup()
 	auto exe_name = GetExeName();
 	bool isOriginExe = exe_name == "Origin.exe";
 	bool isOriginClientServiceExe = exe_name == "OriginClientService.exe";
+	bool isEALinkExe = exe_name == "EALink.exe";
 
 	OriginExe = CModule("Origin.exe", uintptr_t(GetModuleHandleA(nullptr)));
 	OriginClientServiceExe = CModule("OriginClientService.exe", uintptr_t(GetModuleHandleA(nullptr)));
+	EALinkExe = CModule("EALinkExe.exe", uintptr_t(GetModuleHandleA(nullptr)));
 
 	OriginExeAdr = CMemory(OriginExe.GetModuleBase());
 	OriginClientServiceExeAdr = CMemory(OriginClientServiceExe.GetModuleBase());
+	EALinkExeAdr = CMemory(EALinkExe.GetModuleBase());
 
 	if (isOriginExe)
 	{
@@ -65,7 +70,17 @@ void InternalSetup()
 	}
 	else if (isOriginClientServiceExe)
 	{
+		// statically imported by OriginClientService.exe
+		Qt5Core = CModule("Qt5Core.dll");
+
 		DoOriginClientServiceExePatches();
+	}
+	else if (isEALinkExe)
+	{
+		// statically imported by EALinkExe.exe
+		Qt5Core = CModule("Qt5Core.dll");
+
+		DoEALinkExePatches();
 	}
 	else
 	{
