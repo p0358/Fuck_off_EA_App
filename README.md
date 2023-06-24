@@ -68,7 +68,9 @@ You probably installed/updated EA App after installing Origin, and as such EA Ap
 
 ### Does it work on Linux under WINE/Proton?
 
-Check out this issue for current status and directions: #3
+Check out this issue for current status and directions: [#3](https://github.com/p0358/Fuck_off_EA_App/issues/3)
+
+In short, you will need to override the setting for `version` DLL to run as `native, then built-in`, which can be accomplished through `winecfg` or the config or the particular tool you use, or by using the environment variable `WINEDLLOVERRIDES="version=n,b"` in launch options. Note that currently not everything seems to fully work...
 
 ### Is it safe?
 
