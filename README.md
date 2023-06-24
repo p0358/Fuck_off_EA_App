@@ -66,11 +66,17 @@ Given they already broke the older workarounds before a few times, probably not 
 
 You probably installed/updated EA App after installing Origin, and as such EA App was associated to the `link2ea://` protocl instead of Origin. To fix this, run through the Origin installer again. If you get an error that no application is assigned to the protocol, that means you probably uninstalled EA App without running the Origin installer afterwards again.
 
+### If I try to launch Steam games, the error "The game X does not appear to be installed. Please install it or try relaunching the game." comes up?
+
+Open up `C:\ProgramData\Origin\LocalContent` folder and ensure your game has a subdirectory in there. If not, [repair the game files on Steam](https://help.steampowered.com/faqs/view/0C48-FCBD-DA71-93EB). Remember that you need to press *Play* afterwards for the aforementioned files to appear. If they're still not there, browse local game files, open up `installScript.vdf` in Notepad, and search for `"LocFiles"` to figure out which files to copy and where manually...
+
 ### Does it work on Linux under WINE/Proton?
 
 Check out this issue for current status and directions: [#3](https://github.com/p0358/Fuck_off_EA_App/issues/3)
 
 In short, you will need to override the setting for `version` DLL to run as `native, then built-in`, which can be accomplished through `winecfg` or the config or the particular tool you use, or by using the environment variable `WINEDLLOVERRIDES="version=n,b"` in launch options. Note that currently not everything seems to fully work...
+
+![native, then builtin](https://github.com/p0358/Fuck_off_EA_App/assets/5182588/7094bd2d-c8f9-4ec8-b841-ef7ff7c3afd6)
 
 ### How to disable Origin updates just in case?
 
