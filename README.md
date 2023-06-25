@@ -2,7 +2,7 @@
 
 [![Github All Releases](https://img.shields.io/github/downloads/p0358/Fuck_off_EA_App/total.svg)](https://github.com/p0358/Fuck_off_EA_App/releases)
 
-[中文](README_zh-CN.md) | English
+ English | [中文](README_zh-CN.md) 
 
 A small project to patch the EA Origin app and keep it running, avoiding the nags to upgrade to the new EA App.
 
