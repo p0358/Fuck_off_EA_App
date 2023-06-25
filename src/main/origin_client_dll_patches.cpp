@@ -69,7 +69,6 @@ void* __cdecl readSetting_hook(void* out_qv, void* setting, int a3, void* a4)
 	if (setting == SETTING_MigrationDisabled)
 	{
 		// override to true
-		char qv[16] = { 0 };
 		QVariant_QVariant_from_bool(out_qv, true); // caller will destruct this
 		return out_qv;
 	}
