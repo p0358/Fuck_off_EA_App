@@ -97,7 +97,7 @@ EnableUpdating=false
 
 1. 使用git clone这个仓库，或者直接下载源代码，看你个人喜好。
 2. 运行 `generate.bat`
-3. 在`build`文件夹中找到.sln文件，使用Visual Studio 2022或者CLion，再或者你喜欢的其他IDE来打开它。
+3. 在`build`文件夹中找到.sln文件，使用Visual Studio 2022来打开它。
 4. 编译
 5. 编译生成的`version.dll`在`.\build\bin\Win32-Release\`下，把它复制到`C:\Program Files (x86)\Origin`替换原有的version.dll即可。
 
