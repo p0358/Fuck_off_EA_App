@@ -1,6 +1,5 @@
 name: Default
 description: File a bug report etc.
-title: ""
 
 body:
   - type: markdown
@@ -24,6 +23,6 @@ body:
     id: what-happened
     attributes:
       label: Your issue
-      value: ""
+      placeholder: "Please describe your issue in detail here. Don't be shy to include screenshots either."
     validations:
       required: true
