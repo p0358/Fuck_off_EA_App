@@ -5,7 +5,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please do the items from the checklist below. I may close your issue without further comments if it's blatant that you didn't. Please let's respect each other's time.
+        **Please do the items from the checklist below. I may close your issue without further comments if it's blatant that you didn't. Please let's respect each other's time.**
+        A lot of the common issues/concerns are described in the [FAQ](https://github.com/p0358/Fuck_off_EA_App#faq), and it will be quicker for you to check them out than repeat the same question, if it's already answered there...
+        Lastly, consider that some generic issues with Origin may not be related to EA trying to sunset it, and as such might be best asked at their official support instead.
 
   - type: checkboxes
     id: latest
@@ -14,9 +16,9 @@ body:
       options:
         - label: I ensured I'm running the [latest version of the patch](https://github.com/p0358/Fuck_off_EA_App/releases), and that the issue is present in it if applicable
           required: true
-        - label: I have read the entirety of the FAQ section in the readme, and my question was not answered there, or was not answered sufficiently
+        - label: I have read the entirety of the [FAQ](https://github.com/p0358/Fuck_off_EA_App#faq) section in the readme, and my question was not answered there, or was not answered sufficiently
           required: true
-        - label: I have ran general troubleshooting steps (if applicable), such as restarting the PC/reinstalling Origin/whatever else is described in the FAQ, and they didn't help
+        - label: I have ran general troubleshooting steps (if applicable), such as restarting the PC/reinstalling Origin/whatever else is described in the [FAQ](https://github.com/p0358/Fuck_off_EA_App#faq), and they didn't help
           required: true
 
   - type: textarea
