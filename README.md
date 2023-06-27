@@ -2,7 +2,7 @@
 
 [![Github All Releases](https://img.shields.io/github/downloads/p0358/Fuck_off_EA_App/total.svg)](https://github.com/p0358/Fuck_off_EA_App/releases)
 
- English | [中文](README_zh-CN.md) 
+English | [中文](README_zh-CN.md)
 
 A small project to patch the EA Origin app and keep it running, avoiding the nags to upgrade to the new EA App.
 
@@ -63,6 +63,10 @@ EA games on Steam contain installer script, which instructs the Steam to check w
 ### What if EA breaks something again? Will this keep working forever?
 
 Given they already broke the older workarounds before a few times, probably not forever. In any case, follow this repository for updates (*star the project ;)*) -- if the workaround stops working, I will probably try to update it to work again in the future -- contributions are also welcome.
+
+### If I try to launch Steam games, EA App's installer comes up instead?
+
+Just close the installer, and Origin should then still start up. If it does not, look at the question below. You can avoid the EA App installer running up by selecting the option "Pretend EA App is installed" in the patch's installer.
 
 ### If I try to launch Steam games, EA App comes up instead of Origin?
 

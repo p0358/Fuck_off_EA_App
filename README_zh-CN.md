@@ -2,7 +2,7 @@
 
 [![Github All Releases](https://img.shields.io/github/downloads/p0358/Fuck_off_EA_App/total.svg)](https://github.com/p0358/Fuck_off_EA_App/releases)
 
-中文 | [English](README.md)
+[English](README.md) | 中文
 
 这是一个简单修改了Origin的小项目，能让你继续在Origin当钉子户，而不是被迫升级到EA APP。
 
