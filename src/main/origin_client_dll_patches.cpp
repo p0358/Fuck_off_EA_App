@@ -43,7 +43,7 @@ struct migrationConfigDummyStruct
 
 // Origin::Services::OriginConfigService::migrationConfig
 migrationConfigDummyStruct* (__thiscall* migrationConfig_org)(void*, migrationConfigDummyStruct*);
-migrationConfigDummyStruct* __fastcall migrationConfig_hook(void* thisptr, void* /*edx*/, migrationConfigDummyStruct* cfg)
+migrationConfigDummyStruct* __fastcall migrationConfig_hook(void* thisptr /*ecx*/, void* /*edx*/, migrationConfigDummyStruct* cfg)
 {
 	migrationConfig_org(thisptr, cfg);
 	cfg->bool0 = false;
@@ -74,6 +74,13 @@ void* __cdecl readSetting_hook(void* out_qv, void* setting, int a3, void* a4)
 	}
 
 	return readSetting_org(out_qv, setting, a3, a4);
+}
+
+// Origin::Engine::Content::LocalContent::treatUpdatesAsMandatory
+bool(__thiscall* treatUpdatesAsMandatory_org)(void*);
+bool __fastcall treatUpdatesAsMandatory_hook(void* thisptr /*ecx*/, void* /*edx*/)
+{
+	return false;
 }
 
 void DoOriginClientDllPatches()
@@ -109,4 +116,7 @@ void DoOriginClientDllPatches()
 	// This is for native parts of Origin that check migration config, apart from the JavaScript UI and its notice
 	CreateHookNamed("OriginClient", "?migrationConfig@OriginConfigService@Services@Origin@@QBE?AUMigrationConfigT@server@@XZ", migrationConfig_hook, reinterpret_cast<LPVOID*>(&migrationConfig_org));
 	CreateHookNamed("OriginClient", "?readSetting@Services@Origin@@YA?AVVariant@12@ABVSetting@12@V?$QSharedPointer@VAbstractSession@Session@Services@Origin@@@@@Z", readSetting_hook, reinterpret_cast<LPVOID*>(&readSetting_org));
+	
+	// Bonus patch: allow to launch games without updating by treating all updates as non-mandatory
+	CreateHookNamed("OriginClient", "?treatUpdatesAsMandatory@LocalContent@Content@Engine@Origin@@QBE_NXZ", treatUpdatesAsMandatory_hook, reinterpret_cast<LPVOID*>(&treatUpdatesAsMandatory_org));
 }
