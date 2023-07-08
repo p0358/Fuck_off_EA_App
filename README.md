@@ -58,7 +58,7 @@ Our custom DLL (named `version.dll`) is loaded by Origin during its startup, aft
 
 ### How does the `"Pretend EA App is installed"` option work?
 
-EA games on Steam contain installer script, which instructs the Steam to check whether EA App is already installed by checking the system registry for key `HKEY_LOCAL_MACHINE\SOFTWARE\Electronic Arts\EA Desktop\InstallSuccessful` with string value of `true`, skipping the launch of the installer if it's present. So ticking the checkbox simply creates that key and fulfills that condition. There's no harm done if you have actually installed the EA App already and accidentally checked it either.
+EA games on Steam contain installer script, which instructs the Steam to check whether EA App is already installed by checking the system registry for key `HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Electronic Arts\EA Desktop\InstallSuccessful` with the string value of `true`, skipping the launch of the installer if it's present. So ticking the checkbox simply creates that key and fulfills that condition. There's no harm done if you have actually installed the EA App already and accidentally checked it either.
 
 ### What if EA breaks something again? Will this keep working forever?
 
