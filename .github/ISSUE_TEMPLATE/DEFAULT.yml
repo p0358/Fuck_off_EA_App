@@ -20,6 +20,8 @@ body:
           required: true
         - label: I have ran general troubleshooting steps (if applicable), such as restarting the PC/reinstalling Origin/whatever else is described in the [FAQ](https://github.com/p0358/Fuck_off_EA_App#faq), and they didn't help
           required: true
+        - label: I have checked [existing issues](https://github.com/p0358/Fuck_off_EA_App/issues?q=is%3Aissue) (including closed ones), and there wasn't an existing issue pertaining to my problem (with possible solutions in the comments)
+          required: true
 
   - type: textarea
     id: what-happened

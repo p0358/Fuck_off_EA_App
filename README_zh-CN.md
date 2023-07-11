@@ -58,7 +58,7 @@ Note: 你也可以自己动手编译这个dll，步骤会贴在下边。
 
 ###  `"Pretend EA App is installed"` 选项的实现原理是什么？
 
-几乎所有登陆了Steam平台的EA游戏的文件中都会包含一个EA APP的安装脚本，这个脚本会指示Steam检查系统注册表中`HKEY_LOCAL_MACHINE\SOFTWARE\Electronic Arts\EA Desktop\InstallSuccessful` 一项的值是否为 `true`，以此来判断EA APP是否已经安装，如果已经安装，则跳过这个自带的安装脚本。如果你已经安装了EA APP，勾选此项也不会造成额外的问题。
+几乎所有登陆了Steam平台的EA游戏的文件中都会包含一个EA APP的安装脚本，这个脚本会指示Steam检查系统注册表中`HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Electronic Arts\EA Desktop\InstallSuccessful` 一项的值是否为 `true`，以此来判断EA APP是否已经安装，如果已经安装，则跳过这个自带的安装脚本。如果你已经安装了EA APP，勾选此项也不会造成额外的问题。
 
 ### 这个方法能够永久有效吗？如果EA再破坏某些接口怎么办？
 
