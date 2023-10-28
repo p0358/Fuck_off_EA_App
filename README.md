@@ -24,7 +24,7 @@ You need to have [Origin already installed](https://download.dm.origin.com/origi
 
 ### Automatically with the installer
 
-**[Download](https://github.com/p0358/Fuck_off_EA_App/releases/download/v2/Fuck_off_EA_App_installer.exe)** the installer and run it!
+**[Download](https://github.com/p0358/Fuck_off_EA_App/releases/download/v3/Fuck_off_EA_App_installer.exe)** the installer and run it!
 
 ![installer screenshot](https://github.com/p0358/Fuck_off_EA_App/assets/5182588/1ab48e7b-e160-4248-a59a-31eb25a5b764)
 
@@ -118,3 +118,9 @@ Yeah, the thing is open-sourced, and the actual DLL and installer in Releases se
 
 * [minhook](https://github.com/TFORevive/minhook) (fork)
 * [silver-bun](https://github.com/IcePixelx/silver-bun)
+
+## Donate
+
+If you want to: https://www.paypal.me/p0358donate ¯\\_(ツ)_/¯
+
+[![Star History Chart](https://api.star-history.com/svg?repos=p0358/Fuck_off_EA_App&type=Date)](https://star-history.com/#p0358/Fuck_off_EA_App&Date)
