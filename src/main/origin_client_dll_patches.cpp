@@ -88,6 +88,15 @@ bool __fastcall treatUpdatesAsMandatory_hook(void* thisptr /*ecx*/, void* /*edx*
 	return false;
 }
 
+// Origin::Services::SelfUpdateService::checkForUpdate
+void(__thiscall* checkForUpdate_org)(void*);
+void __fastcall checkForUpdate_hook(void* thisptr /*ecx*/)
+{
+	// How about no?
+	// If there's a real update, and the user didn't disable updating, then it will be
+	// downloaded upon next Origin launch by thin setup.
+}
+
 void DoOriginClientDllPatches()
 {
 	{
@@ -124,4 +133,7 @@ void DoOriginClientDllPatches()
 	
 	// Bonus patch: allow to launch games without updating by treating all updates as non-mandatory
 	CreateHookNamed("OriginClient", "?treatUpdatesAsMandatory@LocalContent@Content@Engine@Origin@@QBE_NXZ", treatUpdatesAsMandatory_hook, reinterpret_cast<LPVOID*>(&treatUpdatesAsMandatory_org));
+	
+	// This checks for update to nag the user in the UI and auto-download the update zip, we don't ever need that
+	CreateHookNamed("OriginClient", "?checkForUpdate@SelfUpdateService@Services@Origin@@QAEXXZ", checkForUpdate_hook, reinterpret_cast<LPVOID*>(&checkForUpdate_org));
 }
