@@ -18,14 +18,19 @@ What works (as of 2023-06-25):
 
 ## Download
 
+### Pre-requisite
+
+You need to have [Origin already installed](https://download.dm.origin.com/origin/live/OriginSetup.exe) before continuing with installing the patch.
+
 ### Automatically with the installer
 
 **[Download](https://github.com/p0358/Fuck_off_EA_App/releases/download/v2/Fuck_off_EA_App_installer.exe)** the installer and run it!
 
 ![installer screenshot](https://github.com/p0358/Fuck_off_EA_App/assets/5182588/1ab48e7b-e160-4248-a59a-31eb25a5b764)
 
-### Manually
+### Or manually
 
+Alternatively, if you don't want to use the installer above:
 1. Go into [Releases section](https://github.com/p0358/Fuck_off_EA_App/releases) and grab the latest `version.dll` file
 2. Drop it into your Origin installation folder, by default `C:\Program Files (x86)\Origin`
 3. Restart Origin
@@ -55,6 +60,10 @@ You don't need to either add or remove anything from that file anymore when usin
 ### How does it work?
 
 Our custom DLL (named `version.dll`) is loaded by Origin during its startup, after you insert it under its installation directory. It conducts function hooks and patches that prevent the upgrade notice from appearing. You can study the code for more details.
+
+### Can I have Origin installed alongside EA App at the same time?
+
+Yes, it should be fine. Origin in its newer versions is prepared to handle that gracefully. Both programs should also see games installed by each other.
 
 ### How does the `"Pretend EA App is installed"` option work?
 

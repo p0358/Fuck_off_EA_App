@@ -113,3 +113,12 @@ begin
   end;
   Result := InstallationPath;
 end;
+
+
+
+function PrepareToInstall(var NeedsRestart: Boolean): String;
+begin
+  if not FileExists(ExpandConstant('{app}\Origin.exe')) then begin
+    Result := 'Origin is not installed!'#13#10#13#10'Please install Origin itself first before installing this patch (OriginSetup.exe).'#13#10#13#10'Read the project''s README on GitHub for more details.'
+  end;
+end;
