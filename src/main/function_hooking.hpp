@@ -2,18 +2,50 @@
 
 inline void CreateHook_Error(const std::string& err)
 {
-	MessageBoxA(0, err.c_str(), "Error in CreateHook", MB_ICONERROR | MB_TOPMOST | MB_SETFOREGROUND);
+	MessageBoxA(nullptr, err.c_str(), ERROR_MSGBOX_CAPTION, MB_ICONERROR | MB_TOPMOST | MB_SETFOREGROUND);
 }
 
-inline MH_STATUS WINAPI CreateHook(DWORD64 baseAddress, unsigned int offset, LPVOID pDetour, LPVOID* ppOriginal)
+inline size_t GetModuleHandleFromAddress(void* adr)
 {
-	LPVOID pTarget = (LPVOID)(baseAddress + offset);
+	HMODULE hm = NULL;
+	if (GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCSTR)adr, &hm) == 0)
+	{
+		return 0;
+	}
+	return reinterpret_cast<size_t>(hm);
+}
+
+inline std::string GetModuleNameFromHandle(HMODULE hm)
+{
+	char path[MAX_PATH];
+	if (GetModuleFileNameA(hm, path, sizeof(path)) == 0)
+	{
+		return "<unknown>";
+	}
+	return std::string(path);
+}
+
+inline MH_STATUS WINAPI CreateHook(LPVOID pTarget, LPVOID pDetour, LPVOID* ppOriginal)
+{
 	auto ret = MH_CreateHook(pTarget, pDetour, ppOriginal);
 	if (ret != MH_OK) [[unlikely]]
 	{
-		CreateHook_Error("Error hooking function at module's offset of %X" + std::to_string(offset));
+		auto baseAddress = GetModuleHandleFromAddress(pTarget);
+		if (baseAddress)
+		{
+			CreateHook_Error("Error hooking function at \"" + GetModuleNameFromHandle((HMODULE)baseAddress) + "\" module's offset of " + std::to_string(baseAddress - size_t(pTarget)));
+		}
+		else
+		{
+			CreateHook_Error("Error hooking function at " + std::to_string(size_t(pTarget)));
+		}
 	}
 	return ret;
+}
+
+inline MH_STATUS WINAPI CreateHook(uintptr_t pTarget, LPVOID pDetour, LPVOID* ppOriginal)
+{
+	return CreateHook((LPVOID)pTarget, pDetour, ppOriginal);
 }
 
 inline MH_STATUS WINAPI CreateHookNamed(const char* moduleName, const char* procName, LPVOID pDetour, LPVOID* ppOriginal)

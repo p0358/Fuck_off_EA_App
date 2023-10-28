@@ -1,5 +1,8 @@
 #pragma once
 
+#define ERROR_MSGBOX_CAPTION "\"Fuck off EA App\"'s fatal error"
+#define ERROR_MSGBOX_CAPTION_L L"\"Fuck off EA App\"'s fatal error"
+
 #include "function_hooking.hpp"
 
 extern CModule OriginExe;
@@ -18,9 +21,6 @@ extern void DoOriginExePatches();
 extern void DoOriginClientServiceExePatches();
 extern void DoOriginClientDllPatches();
 extern void DoEALinkExePatches();
-
-#define ERROR_MSGBOX_CAPTION "\"Fuck off EA App\"'s fatal error"
-#define ERROR_MSGBOX_CAPTION_L L"\"Fuck off EA App\"'s fatal error"
 
 template<typename T>
 inline T GetExport(const CModule& module, const char* exportName)
