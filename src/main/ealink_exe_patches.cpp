@@ -13,12 +13,17 @@ namespace EALinkExePatches
 		static auto SETTING_MigrationDisabled = GetExport<void*>(EALinkExe, "?SETTING_MigrationDisabled@Services@Origin@@3VSetting@12@A"); // non-const symbol
 		if (!SETTING_MigrationDisabled)
 			SETTING_MigrationDisabled = GetExport<void*>(EALinkExe, "?SETTING_MigrationDisabled@Services@Origin@@3VSetting@12@B"); // const symbol
-		if (!QVariant_QVariant_from_bool || !SETTING_MigrationDisabled) [[unlikely]]
-			MessageBoxA(nullptr, ("Error in Origin::Services::readSetting: one of the functions could not have been resolved, we will crash\n"
+
+		static bool didWarnAboutMissingAlready = false;
+		if (!didWarnAboutMissingAlready && (!QVariant_QVariant_from_bool || !SETTING_MigrationDisabled)) [[unlikely]]
+		{
+			didWarnAboutMissingAlready = true;
+			MessageBoxA(nullptr, ("Error in Origin::Services::readSetting: one of the functions could not have been resolved, we may crash\n"
 				"\nQVariant_QVariant_from_bool: " + std::to_string(uintptr_t(QVariant_QVariant_from_bool))
 				+ "\nSETTING_MigrationDisabled: " + std::to_string(uintptr_t(SETTING_MigrationDisabled))
 				).c_str(),
 				ERROR_MSGBOX_CAPTION, MB_ICONERROR);
+		}
 
 		if (setting == SETTING_MigrationDisabled)
 		{
