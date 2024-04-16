@@ -8,13 +8,14 @@ A small project to patch the EA Origin app and keep it running, avoiding the nag
 
 If you start up Origin app and see a prompt telling you to install EA App, you've come to the right place.
 
-What works (as of 2023-06-25):
+What works (as of 2024-04-16):
 * ✔️ login
 * ✔️ main page
 * ✔️ game startup
 * ✔️ game downloads
 * ✔️ friends section
 * ✔️ Steam games
+* ✔️ searching for people (fixed recently)
 
 ## Download
 
@@ -89,7 +90,9 @@ Open up `C:\ProgramData\Origin\LocalContent` folder and ensure your game has a s
 
 Check out this issue for current status and directions: [#3](https://github.com/p0358/Fuck_off_EA_App/issues/3)
 
-In short, you will need to override the setting for `version` DLL to run as `native, then built-in`, which can be accomplished through `winecfg` or the config of the particular tool you use (like Bottles), or by using the environment variable `WINEDLLOVERRIDES="version=n,b"` in launch options. Note that currently not everything seems to fully work...
+In short, you will need to override the setting for `version` DLL to run as `native, then built-in`, which can be accomplished through `winecfg` or the config of the particular tool you use (like Bottles), or by using the environment variable `WINEDLLOVERRIDES="version=n,b"`. Note that currently not everything seems to fully work...
+
+On Steam, enter this in launch options field: `WINEDLLOVERRIDES="version=n,b" %command%`
 
 ![native, then builtin](https://github.com/p0358/Fuck_off_EA_App/assets/5182588/7094bd2d-c8f9-4ec8-b841-ef7ff7c3afd6)
 
