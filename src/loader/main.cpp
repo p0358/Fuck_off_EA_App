@@ -5,8 +5,6 @@ extern "C"
     extern void FuckOffEAAppSetup();
 }
 
-HINSTANCE hL = 0;
-
 const std::wstring GetExePathWide()
 {
 	WCHAR result[MAX_PATH];
@@ -39,37 +37,14 @@ void LibraryLoadError(DWORD dwMessageId, const wchar_t* libName, const wchar_t* 
 
 void LoadProxiedLibrary()
 {
-    auto exePath = GetExePathWide();
-
     wchar_t org_dll[MAX_PATH];
     GetSystemDirectoryW(org_dll, MAX_PATH);
-	swprintf_s(org_dll, L"%s\\version.dll", org_dll);
+    lstrcatW(org_dll, L"\\version.dll");
 
-    auto temp_path = std::filesystem::temp_directory_path() / L"version.org.dll";
-
-    try
-    {
-        std::filesystem::copy_file(org_dll, temp_path);
-    }
-    catch (const std::exception& e)
-    {
-        if (!std::filesystem::exists(temp_path))
-        {
-            wchar_t buffer[4096];
-            swprintf_s(
-                buffer,
-                L"Failed copying version.dll from system32 to \"%s\"\n\n%S\n\n",
-                temp_path.c_str(),
-                e.what());
-            MessageBoxW(GetForegroundWindow(), buffer, ERROR_MSGBOX_CAPTION_L, MB_ICONERROR);
-            return;
-        }
-    }
-
-    hL = LoadLibraryExW(temp_path.c_str(), 0, LOAD_WITH_ALTERED_SEARCH_PATH);
+    HINSTANCE hL = LoadLibraryExW(org_dll, 0, LOAD_WITH_ALTERED_SEARCH_PATH);
     if (!hL)
     {
-        LibraryLoadError(GetLastError(), L"version.org.dll", temp_path.c_str());
+        LibraryLoadError(GetLastError(), L"version.dll", org_dll);
         return;
     }
     
