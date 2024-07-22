@@ -8,7 +8,9 @@ A small project to patch the EA Origin app and keep it running, avoiding the nag
 
 If you start up Origin app and see a prompt telling you to install EA App, you've come to the right place.
 
-What works (as of 2024-04-16):
+![Introductory image](https://github.com/user-attachments/assets/35f0b8c7-6e5b-42d9-9b56-34db7d9ce1b4)
+
+What works (as of 2024-07-22):
 * ✔️ login
 * ✔️ main page
 * ✔️ game startup
