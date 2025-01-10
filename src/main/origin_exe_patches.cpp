@@ -30,11 +30,11 @@ HMODULE WINAPI LoadLibraryW_Hook(LPCWSTR lpLibFileName)
 }
 
 // Updater::CheckForSameVersion
-bool(__thiscall* updaterCheckForSameVersion_org)(void*, char, char*);
-bool __fastcall updaterCheckForSameVersion_hook(void* thisptr /*ecx*/, void* /*edx*/, char a2, char* incomingVersion)
+bool(__thiscall* updaterCheckForSameVersion_org)(void*, char, wchar_t*);
+bool __fastcall updaterCheckForSameVersion_hook(void* thisptr /*ecx*/, void* /*edx*/, char a2, wchar_t* incomingVersion)
 {
-	OutputDebugStringA((std::string("[Origin.exe] [Updater::CheckForSameVersion] incomingVersion:") + incomingVersion).c_str());
-	if (!std::string_view(incomingVersion).starts_with("10."))
+	OutputDebugStringW((std::wstring(L"[Origin.exe] [Updater::CheckForSameVersion] incomingVersion:") + incomingVersion).c_str());
+	if (!std::wstring_view(incomingVersion).starts_with(L"10."))
 		return true; // tell it that version numbers match
 	return updaterCheckForSameVersion_org(thisptr, a2, incomingVersion);
 }
