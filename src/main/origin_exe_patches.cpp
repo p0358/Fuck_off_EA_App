@@ -39,6 +39,29 @@ bool __fastcall updaterCheckForSameVersion_hook(void* thisptr /*ecx*/, void* /*e
 	return updaterCheckForSameVersion_org(thisptr, a2, incomingVersion);
 }
 
+// this[42] = downloadURL [0x100u]
+// this[48] = updateRule [0x100u]
+// Downloader::UpdateCheck::loadXML
+bool(__thiscall* updaterLoadXML_org)(wchar_t**, int);
+bool __fastcall updaterLoadXML_hook(wchar_t** thisptr /*ecx*/, void* /*edx*/, int a2)
+{
+	auto ret = updaterLoadXML_org(thisptr, a2);
+	wchar_t* downloadURL = thisptr[42];
+	wchar_t* updateRule = thisptr[48];
+	if (ret && downloadURL && downloadURL[0] && updateRule && updateRule[0])
+	{
+		OutputDebugStringW((std::wstring(L"[Origin.exe] [Downloader::UpdateCheck::loadXML] downloadURL = ") + downloadURL).c_str());
+		OutputDebugStringW((std::wstring(L"[Origin.exe] [Downloader::UpdateCheck::loadXML] updateRule = ") + downloadURL).c_str());
+		wcscpy_s(updateRule, 256, L"OPTIONAL"); // make the update optional
+
+		// fix broken update URL for 10.5.129 (major EA moment)
+		if (wcscpy(downloadURL, L"https://origin-a.akamaihd.net/Stage-Origin-Client-Download/origin/live/OriginUpdate_10_5_129_55742.zip") == 0)
+			wcscpy_s(downloadURL, 256, L"https://origin-a.akamaihd.net/Origin-Client-Download/origin/live/OriginUpdate_10_5_129_55742.zip");
+	}
+
+	return ret;
+}
+
 void DoOriginExePatches()
 {
 	// We hook LoadLibraryW to monitor for when OriginClient.dll is actually loaded, as it's loaded dynamically.
@@ -56,5 +79,16 @@ void DoOriginExePatches()
 	{
 		if (!strstr(GetCommandLineA(), "/noUpdate"))
 			MessageBoxA(nullptr, "Failed resolving pattern of Updater::CheckForSameVersion, we may fail to block the broken Origin update.", ERROR_MSGBOX_CAPTION, MB_ICONERROR);
+	}
+	
+	auto updaterLoadXML_adr = CMemory(OriginExe.GetModuleBase()).FindPattern("55 8B EC 6A ? 68 ? ? ? ? 64 A1 ? ? ? ? 50 83 EC ? A1 ? ? ? ? 33 C5 89 45 ? 53 56 57 50 8D 45 ? 64 A3 ? ? ? ? 8B D9 C7 45", CMemory::Direction::DOWN, 5 * 1024 * 1024);
+	if (updaterLoadXML_adr)
+	{
+		CreateHook(updaterLoadXML_adr.GetPtr(), updaterLoadXML_hook, reinterpret_cast<LPVOID*>(&updaterLoadXML_org));
+	}
+	else
+	{
+		if (!strstr(GetCommandLineA(), "/noUpdate"))
+			MessageBoxA(nullptr, "Failed resolving pattern of Downloader::UpdateCheck::loadXML, we may fail to fix up Origin update.", ERROR_MSGBOX_CAPTION, MB_ICONERROR);
 	}
 }
