@@ -97,6 +97,41 @@ void __fastcall checkForUpdate_hook(void* thisptr /*ecx*/)
 	// downloaded upon next Origin launch by thin setup.
 }
 
+// Origin::Client::LoginViewController::init
+void(__thiscall* loginViewController_init_org)(void*, DWORD*, /* Origin::Client::AuthenticationJsHelper* */ void*, int);
+void __fastcall loginViewController_init_hook(void* thisptr /*ecx*/, void* /*edx*/, DWORD* a2, void* a3, int a4)
+{
+	*(bool*)((uintptr_t)thisptr + 166) = true; // make it think we've loaded all cookies already
+	//*(bool*)((uintptr_t)thisptr + 167) = true; // make it think Trusted Clock is already initialized
+	loginViewController_init_org(thisptr, a2, a3, a4);
+
+	// this does NOT seem to work here!
+	// Origin::Client::LoginViewController::killSplashScreenAndShowLoginWindow
+	//static auto killSplashScreenAndShowLoginWindow = GetExport<void(__thiscall*)(void*)>(OriginClient, "?killSplashScreenAndShowLoginWindow@LoginViewController@Client@Origin@@AAEXXZ");
+	//killSplashScreenAndShowLoginWindow(thisptr);
+}
+
+// Origin::Client::LoginViewController::loadLoginPage
+void(__thiscall* loginViewController_loadLoginPage_org)(void*, int);
+void __fastcall loginViewController_loadLoginPage_hook(void* thisptr /*ecx*/, void* /*edx*/, int a2)
+{
+	loginViewController_loadLoginPage_org(thisptr, a2);
+
+	static auto killSplashScreenAndShowLoginWindow = GetExport<void(__thiscall*)(void*)>(OriginClient, "?killSplashScreenAndShowLoginWindow@LoginViewController@Client@Origin@@AAEXXZ");
+	
+	static bool didWarnAboutMissingAlready = false;
+	if (!didWarnAboutMissingAlready && (!killSplashScreenAndShowLoginWindow)) [[unlikely]]
+	{
+		didWarnAboutMissingAlready = true;
+		MessageBoxA(nullptr, "Error in Origin::Client::LoginViewController::loadLoginPage: killSplashScreenAndShowLoginWindow was not found, your Origin client will probably be stuck on splash screen\n"
+			"\nRight-click Origin icon in your tray and click Open Origin as a workaround.",
+			ERROR_MSGBOX_CAPTION, MB_ICONERROR);
+	}
+
+	// well it seems someone forgot to call this func in a reasonable place like here
+	if (killSplashScreenAndShowLoginWindow)
+		killSplashScreenAndShowLoginWindow(thisptr);
+}
 void DoOriginClientDllPatches()
 {
 	{
@@ -136,4 +171,8 @@ void DoOriginClientDllPatches()
 	
 	// This checks for update to nag the user in the UI and auto-download the update zip, we don't ever need that
 	CreateHookNamed("OriginClient", "?checkForUpdate@SelfUpdateService@Services@Origin@@QAEXXZ", checkForUpdate_hook, reinterpret_cast<LPVOID*>(&checkForUpdate_org));
+
+	// Patches around broken login screen due to missing cookie (hopefully it's a temporary thing?)
+	CreateHookNamed("OriginClient", "?init@LoginViewController@Client@Origin@@QAEXABW4StartupState@@W4IconType@OriginBanner@UIToolkit@3@ABVQString@@@Z", loginViewController_init_hook, reinterpret_cast<LPVOID*>(&loginViewController_init_org));
+	CreateHookNamed("OriginClient", "?loadLoginPage@LoginViewController@Client@Origin@@IAEX_N@Z", loginViewController_loadLoginPage_hook, reinterpret_cast<LPVOID*>(&loginViewController_loadLoginPage_org));
 }
