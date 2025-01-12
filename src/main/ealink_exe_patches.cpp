@@ -19,8 +19,8 @@ namespace EALinkExePatches
 		{
 			didWarnAboutMissingAlready = true;
 			MessageBoxA(nullptr, ("Error in Origin::Services::readSetting: one of the functions could not have been resolved, we may crash\n"
-				"\nQVariant_QVariant_from_bool: " + std::to_string(uintptr_t(QVariant_QVariant_from_bool))
-				+ "\nSETTING_MigrationDisabled: " + std::to_string(uintptr_t(SETTING_MigrationDisabled))
+				"\nQVariant_QVariant_from_bool: " + std::format("{:#010x}", uintptr_t(QVariant_QVariant_from_bool))
+				+ "\nSETTING_MigrationDisabled: " + std::format("{:#010x}", uintptr_t(SETTING_MigrationDisabled))
 				).c_str(),
 				ERROR_MSGBOX_CAPTION, MB_ICONERROR);
 		}

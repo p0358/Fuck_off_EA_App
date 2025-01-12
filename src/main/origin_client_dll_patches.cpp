@@ -12,9 +12,9 @@ void* __stdcall findUserMigrationTimePeriod_hook(void* a1)
 	static auto QJsonObject_toVariantMap = GetExport<void*(__thiscall*)(void*, void*)>(Qt5Core, "?toVariantMap@QJsonObject@@QBE?AV?$QMap@VQString@@VQVariant@@@@XZ");
 	if (!QJsonObject_QJsonObject || !QJsonObject_QJsonObject_destruct || !QJsonObject_toVariantMap) [[unlikely]]
 		MessageBoxA(nullptr, ("Error in Origin::Client::JsInterface::ClientSettingsProxy::findUserMigrationTimePeriod: one of the functions could not have been resolved, we will crash\n"
-			"\nQJsonObject_QJsonObjectl: " + std::to_string(uintptr_t(QJsonObject_QJsonObject))
-			+ "\nQJsonObject_QJsonObject_destruct: " + std::to_string(uintptr_t(QJsonObject_QJsonObject_destruct))
-			+ "\nQJsonObject_toVariantMap: " + std::to_string(uintptr_t(QJsonObject_toVariantMap))
+			"\nQJsonObject_QJsonObjectl: " + std::format("{:#010x}", uintptr_t(QJsonObject_QJsonObject))
+			+ "\nQJsonObject_QJsonObject_destruct: " + std::format("{:#010x}", uintptr_t(QJsonObject_QJsonObject_destruct))
+			+ "\nQJsonObject_toVariantMap: " + std::format("{:#010x}", uintptr_t(QJsonObject_toVariantMap))
 			).c_str(),
 			ERROR_MSGBOX_CAPTION, MB_ICONERROR);
 	
