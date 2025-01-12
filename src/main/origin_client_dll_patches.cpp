@@ -97,11 +97,34 @@ void __fastcall checkForUpdate_hook(void* thisptr /*ecx*/)
 	// downloaded upon next Origin launch by thin setup.
 }
 
+#if 0
+// NOTE: This hook is completely broken, but also not needed...
+// QString::compare
+bool(__thiscall* qstring_compare_org)(void*, void*, int);
+bool __fastcall qstring_compare_hook(void* thisptr /*ecx*/, void* /*edx*/, void* comparee, int a3)
+{
+	if (a3 == 1)
+	{
+		static auto QString_startsWith = GetExport<void* (__thiscall*)(void*, void*, int)>(Qt5Core, "?startsWith@QString@@QBE_NABV1@W4CaseSensitivity@Qt@@@Z");
+		static auto QString_QString = GetExport<void* (__thiscall*)(void*, const char*)>(Qt5Core, "??0QString@@QAE@PBD@Z");
+		static int ten = 0;
+		static int twelve = 0;
+		if (ten == 0) QString_QString(&twelve, "10.5.");
+		if (twelve == 0) QString_QString(&twelve, "12.");
+		if (QString_startsWith(comparee, &twelve, 0) && QString_startsWith(thisptr, &ten, 0))
+			return 0;
+	}
+	return qstring_compare_org(thisptr, comparee, a3);
+}
+#endif
+
+#if 0
 // Origin::Client::LoginViewController::init
 void(__thiscall* loginViewController_init_org)(void*, DWORD*, /* Origin::Client::AuthenticationJsHelper* */ void*, int);
 void __fastcall loginViewController_init_hook(void* thisptr /*ecx*/, void* /*edx*/, DWORD* a2, void* a3, int a4)
 {
-	*(bool*)((uintptr_t)thisptr + 166) = true; // make it think we've loaded all cookies already
+	loginViewController_init_org(thisptr, a2, a3, a4);
+	////*(bool*)((uintptr_t)thisptr + 166) = true; // make it think we've loaded all cookies already
 	//*(bool*)((uintptr_t)thisptr + 167) = true; // make it think Trusted Clock is already initialized
 	loginViewController_init_org(thisptr, a2, a3, a4);
 
@@ -109,6 +132,13 @@ void __fastcall loginViewController_init_hook(void* thisptr /*ecx*/, void* /*edx
 	// Origin::Client::LoginViewController::killSplashScreenAndShowLoginWindow
 	//static auto killSplashScreenAndShowLoginWindow = GetExport<void(__thiscall*)(void*)>(OriginClient, "?killSplashScreenAndShowLoginWindow@LoginViewController@Client@Origin@@AAEXXZ");
 	//killSplashScreenAndShowLoginWindow(thisptr);
+}
+
+// Origin::Services::TrustedClock::isInitialized
+bool(__thiscall* trustedClock_isInitialized_org)(void*);
+bool __fastcall trustedClock_isInitialized_hook(void* thisptr /*ecx*/)
+{
+	return true;
 }
 
 // Origin::Client::LoginViewController::loadLoginPage
@@ -132,6 +162,64 @@ void __fastcall loginViewController_loadLoginPage_hook(void* thisptr /*ecx*/, vo
 	if (killSplashScreenAndShowLoginWindow)
 		killSplashScreenAndShowLoginWindow(thisptr);
 }
+#endif
+
+// QWebEngineCookieStore::setCookie
+void(__thiscall* QWebEngineCookieStore_setCookie_org)(void*, /* QNetworkCookie */ void*, /* QUrl */ void*);
+void __fastcall QWebEngineCookieStore_setCookie_hook(void* thisptr /*ecx*/, void* /*edx*/, void* cookie, void* url)
+{
+	static auto QString_destroy = GetExport<void(__thiscall*)(void*)>(Qt5Core, "??1QString@@QAE@XZ");
+	static auto QString_QString_from_cchar = GetExport<void* (__thiscall*)(void*, const char*)>(Qt5Core, "??0QString@@QAE@PBD@Z");
+	static auto QString_toStdString = GetExport<void* (__thiscall*)(void*, std::string*)>(Qt5Core, "?toStdString@QString@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ");
+	static auto QByteArray_toStdString = GetExport<void* (__thiscall*)(void*, std::string*)>(Qt5Core, "?toStdString@QByteArray@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ");
+	static auto QByteArray_destroy = GetExport<void* (__thiscall*)(void*)>(Qt5Core, "??1QByteArray@@QAE@XZ");
+	static auto QNetworkCookie_setDomain = GetExport<void(__thiscall*)(void*, void*)>(Qt5Network, "?setDomain@QNetworkCookie@@QAEXABVQString@@@Z");
+	static auto QNetworkCookie_domain = GetExport<void(__thiscall*)(void*, void*)>(Qt5Network, "?domain@QNetworkCookie@@QBE?AVQString@@XZ");
+	static auto QNetworkCookie_name = GetExport<void(__thiscall*)(void*, void*)>(Qt5Network, "?name@QNetworkCookie@@QBE?AVQByteArray@@XZ");
+
+	OutputDebugStringA("[QWebEngineCookieStore::setCookie] Howdy");
+
+	if (QString_destroy && QString_QString_from_cchar && QString_toStdString && QByteArray_toStdString && QByteArray_destroy && QNetworkCookie_setDomain && QNetworkCookie_domain)
+	{
+		char qs_cookie_domain[4] = { 0 };
+		char qba_cookie_name[4] = { 0 };
+		std::string cookie_domain;
+		std::string cookie_name;
+
+		QNetworkCookie_domain(cookie, qs_cookie_domain);
+		QString_toStdString(qs_cookie_domain, &cookie_domain);
+		
+		QNetworkCookie_name(cookie, qba_cookie_name);
+		QByteArray_toStdString(qba_cookie_name, &cookie_name);
+
+		OutputDebugStringA(("[QWebEngineCookieStore::setCookie] name=" + cookie_name + " domain=" + cookie_domain).c_str());
+		//__debugbreak();
+
+		if (cookie_name == "remid" && cookie_domain == "")
+		{
+			OutputDebugStringA("[QWebEngineCookieStore::setCookie] Fixing domain name to accounts.ea.com for cookie remid");
+			char qs_cookie_domain_new[4] = { 0 };
+			QString_QString_from_cchar(qs_cookie_domain_new, "accounts.ea.com");
+			QNetworkCookie_setDomain(cookie, qs_cookie_domain_new);
+			QString_destroy(qs_cookie_domain_new);
+		}
+
+		QString_destroy(qs_cookie_domain);
+		QByteArray_destroy(qba_cookie_name);
+	}
+	else
+	{
+		static bool didWarnAboutMissingAlready = false;
+		if (!didWarnAboutMissingAlready) [[unlikely]]
+		{
+			didWarnAboutMissingAlready = true;
+			MessageBoxA(nullptr, "Error in QWebEngineCookieStore::setCookie: one of the exports could not have been resolved!", ERROR_MSGBOX_CAPTION, MB_ICONERROR);
+		}
+	}
+
+	QWebEngineCookieStore_setCookie_org(thisptr, cookie, url);
+}
+
 void DoOriginClientDllPatches()
 {
 	{
@@ -171,8 +259,13 @@ void DoOriginClientDllPatches()
 	
 	// This checks for update to nag the user in the UI and auto-download the update zip, we don't ever need that
 	CreateHookNamed("OriginClient", "?checkForUpdate@SelfUpdateService@Services@Origin@@QAEXXZ", checkForUpdate_hook, reinterpret_cast<LPVOID*>(&checkForUpdate_org));
+	//CreateHookNamed("Qt5Core", "?compare@QString@@QBEHABV1@W4CaseSensitivity@Qt@@@Z", qstring_compare_hook, reinterpret_cast<LPVOID*>(&qstring_compare_org));
 
 	// Patches around broken login screen due to missing cookie (hopefully it's a temporary thing?)
-	CreateHookNamed("OriginClient", "?init@LoginViewController@Client@Origin@@QAEXABW4StartupState@@W4IconType@OriginBanner@UIToolkit@3@ABVQString@@@Z", loginViewController_init_hook, reinterpret_cast<LPVOID*>(&loginViewController_init_org));
-	CreateHookNamed("OriginClient", "?loadLoginPage@LoginViewController@Client@Origin@@IAEX_N@Z", loginViewController_loadLoginPage_hook, reinterpret_cast<LPVOID*>(&loginViewController_loadLoginPage_org));
+	///CreateHookNamed("OriginClient", "?init@LoginViewController@Client@Origin@@QAEXABW4StartupState@@W4IconType@OriginBanner@UIToolkit@3@ABVQString@@@Z", loginViewController_init_hook, reinterpret_cast<LPVOID*>(&loginViewController_init_org));
+	//CreateHookNamed("OriginClient", "?isInitialized@TrustedClock@Services@Origin@@QBE_NXZ", trustedClock_isInitialized_hook, reinterpret_cast<LPVOID*>(&trustedClock_isInitialized_org));
+	///CreateHookNamed("OriginClient", "?loadLoginPage@LoginViewController@Client@Origin@@IAEX_N@Z", loginViewController_loadLoginPage_hook, reinterpret_cast<LPVOID*>(&loginViewController_loadLoginPage_org));
+
+	// 
+	//CreateHookNamed("Qt5WebEngineCore", "?setCookie@QWebEngineCookieStore@@QAEXABVQNetworkCookie@@ABVQUrl@@@Z", QWebEngineCookieStore_setCookie_hook, reinterpret_cast<LPVOID*>(&QWebEngineCookieStore_setCookie_org));
 }
