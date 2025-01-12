@@ -10,9 +10,12 @@
 #include <string>
 #include <vector>
 #include <iterator>
+#include <ranges>
 #include <regex>
 #include <filesystem>
 namespace fs = std::filesystem;
+
+using std::operator""sv;
 
 #include <MinHook.h>
 
