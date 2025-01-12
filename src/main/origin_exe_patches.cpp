@@ -16,6 +16,7 @@ HMODULE WINAPI LoadLibraryW_Hook(LPCWSTR lpLibFileName)
 
 		// statically imported by OriginClient.dll
 		Qt5Core = CModule("Qt5Core.dll");
+		Qt5Network = CModule("Qt5Network.dll");
 
 		DoOriginClientDllPatches();
 
@@ -51,7 +52,7 @@ bool __fastcall updaterLoadXML_hook(wchar_t** thisptr /*ecx*/, void* /*edx*/, in
 	if (ret && downloadURL && downloadURL[0] && updateRule && updateRule[0])
 	{
 		OutputDebugStringW((std::wstring(L"[Origin.exe] [Downloader::UpdateCheck::loadXML] downloadURL = ") + downloadURL).c_str());
-		OutputDebugStringW((std::wstring(L"[Origin.exe] [Downloader::UpdateCheck::loadXML] updateRule = ") + downloadURL).c_str());
+		OutputDebugStringW((std::wstring(L"[Origin.exe] [Downloader::UpdateCheck::loadXML] updateRule = ") + updateRule).c_str());
 		wcscpy_s(updateRule, 256, L"OPTIONAL"); // make the update optional
 
 		// fix broken update URL for 10.5.129 (major EA moment)

@@ -16,6 +16,7 @@ extern CMemory OriginClientAdr;
 extern CMemory EALinkExeAdr;
 
 extern CModule Qt5Core;
+extern CModule Qt5Network;
 
 extern void DoOriginExePatches();
 extern void DoOriginClientServiceExePatches();

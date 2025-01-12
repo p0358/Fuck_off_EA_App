@@ -15,6 +15,7 @@ CMemory OriginClientAdr;
 CMemory EALinkExeAdr;
 
 CModule Qt5Core;
+CModule Qt5Network;
 
 const fs::path GetExePath()
 {
