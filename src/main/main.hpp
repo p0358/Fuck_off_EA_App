@@ -21,6 +21,7 @@ extern CModule Qt5Network;
 extern void DoOriginExePatches();
 extern void DoOriginClientServiceExePatches();
 extern void DoOriginClientDllPatches();
+extern void DoOriginThinSetupInternalExePatches();
 extern void DoEALinkExePatches();
 
 template<typename T>

@@ -54,6 +54,7 @@ void InternalSetup()
 	auto exe_name = GetExeName();
 	bool isOriginExe = exe_name == "Origin.exe";
 	bool isOriginClientServiceExe = exe_name == "OriginClientService.exe";
+	bool isOriginThinSetupInternalExe = exe_name == "OriginThinSetupInternal.exe";
 	bool isEALinkExe = exe_name == "EALink.exe";
 
 	OriginExe = CModule("Origin.exe", uintptr_t(GetModuleHandleA(nullptr)));
@@ -75,6 +76,13 @@ void InternalSetup()
 		Qt5Core = CModule("Qt5Core.dll");
 
 		DoOriginClientServiceExePatches();
+	}
+	else if (isOriginThinSetupInternalExe)
+	{
+		// statically imported by OriginThinSetupInternal.exe
+		Qt5Core = CModule("Qt5Core.dll");
+
+		DoOriginThinSetupInternalExePatches();
 	}
 	else if (isEALinkExe)
 	{
