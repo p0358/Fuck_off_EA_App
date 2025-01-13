@@ -38,7 +38,7 @@ jobs:
           vs-prerelease: true
 
       - name: Generate project files (premake)
-        run: premake/premake5 vs2022
+        run: premake/premake5 vs2022 --ci-build
 
       - name: Compile
         id: compile

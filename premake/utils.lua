@@ -1,5 +1,8 @@
 os.chdir(_MAIN_SCRIPT_DIR)
 
+gitVersioningCommand = "git describe --tags --dirty --always"
+gitCurrentBranchCommand = "git symbolic-ref -q --short HEAD"
+
 require("vstudio")
 premake.api.register {
 	name = "solutionitems",
@@ -108,3 +111,52 @@ end)
 --    end
 --    return base(cfg)
 --end)
+
+-- Quote the given string input as a C string
+function cstrquote(value)
+	if value == nil then
+		return "\"\""
+	end
+	result = value:gsub("\\", "\\\\")
+	result = result:gsub("\"", "\\\"")
+	result = result:gsub("\n", "\\n")
+	result = result:gsub("\t", "\\t")
+	result = result:gsub("\r", "\\r")
+	result = result:gsub("\a", "\\a")
+	result = result:gsub("\b", "\\b")
+	result = "\"" .. result .. "\""
+	return result
+end
+
+-- Converts tags in "vX.X.X" format and given revision number Y to an array of numbers {X,X,X,Y}.
+-- In the case where the format does not work fall back to padding with zeroes and just ending with the revision number.
+-- partscount can be either 3 or 4.
+function vertonumarr(value, vernumber, partscount)
+	vernum = {}
+	for num in string.gmatch(value or "", "%d+") do
+		if #vernum < 3 then
+			table.insert(vernum, tonumber(num))
+		end
+	end
+	while #vernum < 3 do
+		table.insert(vernum, 0)
+	end
+	if #vernum < partscount then
+		table.insert(vernum, tonumber(vernumber))
+	end
+	return vernum
+end
+
+function io.writefile(filename, content)
+	-- do not write if contents haven't changed
+	if content == io.readfile(filename) then
+		return true
+	end
+
+	local file = io.open(filename, "w+b")
+	if file then
+		file:write(content)
+		file:close()
+		return true
+	end
+end
