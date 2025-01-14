@@ -23,7 +23,7 @@
 
 ### 使用安装器自动安装
 
-**[下载](https://github.com/p0358/Fuck_off_EA_App/releases/download/v2/Fuck_off_EA_App_installer.exe)** 这个安装器然后双击运行即可
+**[下载](https://github.com/p0358/Fuck_off_EA_App/releases/latest/download/Fuck_off_EA_App_installer.exe)** 这个安装器然后双击运行即可
 
 ![installer screenshot](https://github.com/p0358/Fuck_off_EA_App/assets/5182588/1ab48e7b-e160-4248-a59a-31eb25a5b764)
 
