@@ -56,7 +56,7 @@ bool __fastcall updaterLoadXML_hook(wchar_t** thisptr /*ecx*/, void* /*edx*/, in
 		wcscpy_s(updateRule, 256, L"OPTIONAL"); // make the update optional
 
 		// fix broken update URL for 10.5.129 (major EA moment)
-		if (wcscpy(downloadURL, L"https://origin-a.akamaihd.net/Stage-Origin-Client-Download/origin/live/OriginUpdate_10_5_129_55742.zip") == 0)
+		if (wcscmp(downloadURL, L"https://origin-a.akamaihd.net/Stage-Origin-Client-Download/origin/live/OriginUpdate_10_5_129_55742.zip") == 0)
 			wcscpy_s(downloadURL, 256, L"https://origin-a.akamaihd.net/Origin-Client-Download/origin/live/OriginUpdate_10_5_129_55742.zip");
 	}
 
