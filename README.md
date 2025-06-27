@@ -4,20 +4,31 @@
 
 English | [中文](README_zh-CN.md)
 
+## ⚠️ Archival notice
+
+EA has officially shut down Origin in April 2025, leaving that app non-functioning, killing off most API endpoints, and then proceeding to refactor their backend with [EA App](https://www.ea.com/ea-app) being the only remaining available option. That means that this project is **NOT** working anymore.
+
+Thank you for all the support and kind words, nothing good can last forever though. I am glad to have helped this many people keep on playing their games where EA has failed them, I've never expected the project to blow up this much and get so popular.
+
+Not all hope is lost though! Eventually **Maxima** should be released – an open-source replacement launcher for EA games made by the authors of [Kyber](https://kyber.gg/), with native Windows and Linux support, written in Rust, faster and more lightweight, etc. Follow them around on [GitHub](https://github.com/ArmchairDevelopers/Maxima), [crates.io](https://crates.io/crates/maxima) and [Twitter](https://xcancel.com/MaximaLauncher). I'm sure they'll release it eventually, any day now...
+
+## Original README below
+
 A small project to patch the EA Origin app and keep it running, avoiding the nags to upgrade to the new EA App.
 
 If you start up Origin app and see a prompt telling you to install EA App, you've come to the right place.
 
 ![Introductory image](https://github.com/user-attachments/assets/35f0b8c7-6e5b-42d9-9b56-34db7d9ce1b4)
 
-What works (as of 2024-07-22):
-* ✔️ login
-* ✔️ main page
-* ✔️ game startup
-* ✔️ game downloads
-* ✔️ friends section
-* ✔️ Steam games
-* ✔️ searching for people (fixed recently)
+What works (as of 2025-05):
+* ❌ **NOTHING** — the Origin app was shut down by EA in April 2025
+* ~~✔️ login~~
+* ~~✔️ main page~~
+* ~~✔️ game startup~~
+* ~~✔️ game downloads~~
+* ~~✔️ friends section~~
+* ~~✔️ Steam games~~
+* ~~✔️ searching for people (fixed recently)~~
 
 ## Download
 

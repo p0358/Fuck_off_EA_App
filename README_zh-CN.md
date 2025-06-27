@@ -4,20 +4,31 @@
 
 [English](README.md) | 中文
 
+## ⚠️ 存档通知
+
+EA 已于 2025 年 4 月正式关闭 Origin，使该应用程序无法运行，并关闭了大部分 API 端点，然后开始重构其后台，[EA App](https://www.ea.com/ea-app)是仅存的可用选项。这意味着该项目已**无法运行**。
+
+感谢大家的支持和赞誉，但没有什么好事能永远持续下去。我很高兴能帮助这么多人继续玩他们的游戏，而 EA 却让他们失望了，我从没想过这个项目会如此火爆，如此受欢迎。
+
+但希望并没有破灭！最终，**Maxima**应该会发布--这是由[Kyber](https://kyber.gg/)的作者制作的EA游戏的开源替代启动器，支持Windows和Linux原生系统，用Rust编写，速度更快、更轻便，等等。请在 [GitHub](https://github.com/ArmchairDevelopers/Maxima)、[crates.io](https://crates.io/crates/maxima) 和 [Twitter](https://xcancel.com/MaximaLauncher) 上关注他们。我相信他们最终会发布它，随时都有可能......
+
+## 下面是 README 原文
+
 这是一个简单修改了Origin的小项目，能让你继续在Origin当钉子户，而不是被迫升级到EA APP。
 
 如果你启动Origin却被提示需要更新到EA APP，那么恭喜你来对地方了。
 
 ![介绍图片](https://github.com/user-attachments/assets/35f0b8c7-6e5b-42d9-9b56-34db7d9ce1b4)
 
-截止至2024-07-22，Origin至少还有以下功能可用:
-* ✔️ 登录
-* ✔️ 主界面
-* ✔️ 启动游戏
-* ✔️ 下载/更新游戏
-* ✔️ 好友系统
-* ✔️ 从Steam启动游戏
-* ✔️ 搜寻人员（最近修复）
+截止至2025-05，Origin至少还有以下功能可用:
+* ❌ **无** — Origin 应用程序已于 2025 年 4 月被 EA 关闭
+* ~~✔️ 登录~~
+* ~~✔️ 主界面~~
+* ~~✔️ 启动游戏~~
+* ~~✔️ 下载/更新游戏~~
+* ~~✔️ 好友系统~~
+* ~~✔️ 从Steam启动游戏~~
+* ~~✔️ 搜寻人员（最近修复）~~
 
 ## 下载安装
 
